@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+ <body>
+<script>
+var index           = 0;
+var idIndex         = 0;
+var id              = "";
+var start           = 0;
+var max             = 0;
+var tableSize       = 10;
+var galleryRowCount = 10;
+var imageList       = new Array();
+
+imageList[max++] = '2011DevTalkPlotting.png';
+imageList[max++] = 'code_test.png';
+imageList[max++] = 'DataRepo_NoThrow.png';
+imageList[max++] = 'DataRepo_Throw.png';
+imageList[max++] = 'gridSetDiscuss01.png';
+imageList[max++] = 'gridSetDiscuss02.png';
+imageList[max++] = 'gridsetsV3.1.png';
+imageList[max++] = 'gsrFanItem.png';
+imageList[max++] = 'gsrFanSeries.png';
+imageList[max++] = 'gsrFenceSeriesItem.png';
+imageList[max++] = 'gsrLinearItem.png';
+imageList[max++] = 'gsrLinearSeries.png';
+imageList[max++] = 'gsrPolylineItem.png';
+imageList[max++] = 'gsrPolylineSeries.png';
+imageList[max++] = 'gsrRandomItem.png';
+imageList[max++] = 'gsrRandomSeries.png';
+imageList[max++] = 'MineSight Logo 2010_square.png';
+imageList[max++] = 'MineSight Logo 2010_square_skype.png';
+imageList[max++] = 'MineSight logo wallpaper.png';
+imageList[max++] = 'MineSight logo wallpaper2.png';
+imageList[max++] = 'modelBlockTextDisplayCenterLine.png';
+imageList[max++] = 'modelBlockTextDisplayCenterLineLR.png';
+imageList[max++] = 'modelBlockTextDisplayOutline.png';
+imageList[max++] = 'modelViewLabelPosition.png';
+imageList[max++] = 'plotting2012plotLegend.png';
+imageList[max++] = 'plotting2012plotLimit.png';
+imageList[max++] = 'plotting2012plotTabArea.png';
+imageList[max++] = 'plotting2012plotTabAreaConnection.png';
+imageList[max++] = 'plotting2012plotTabAreaConnectionExample.png';
+imageList[max++] = 'plotting2012plotTabAreaConnectionValue.png';
+imageList[max++] = 'plotting2012plotTabAreaList.png';
+imageList[max++] = 'plotting2012plotTabAreaListCreate.png';
+imageList[max++] = 'plotting2012plotTabAreaListMove.png';
+imageList[max++] = 'plotting2012plotTabAreaListRemove.png';
+imageList[max++] = 'plotting2012plotTabAreaObject.png';
+imageList[max++] = 'plotting2012plotTabAreaOption.png';
+imageList[max++] = 'plotting2012plotTabInfo.png';
+imageList[max++] = 'plotting2012plotTabOutput.png';
+imageList[max++] = 'plotting2012plotTabOutputTargetList.png';
+imageList[max++] = 'plotting2012plotTabOutputTargetOption.png';
+imageList[max++] = 'plotting2012plotTabOutputTargetPrefix.png';
+imageList[max++] = 'plotting2012plotTabPage.png';
+imageList[max++] = 'plotting2012plotTabPageAdv.png';
+imageList[max++] = 'plotting2012plotTabPageBoundaryUserEditView.png';
+imageList[max++] = 'plotting2012plotTabPageBoundaryUserEditViewDir.png';
+imageList[max++] = 'plotting2012plotTabPageScaleShape.png';
+imageList[max++] = 'plotting2012plotTabProject.png';
+imageList[max++] = 'TM-plotting2012plotLimit.png';
+imageList[max++] = 'TM-plotting2012plotTabArea.png';
+imageList[max++] = 'TM-plotting2012plotTabInfo.png';
+imageList[max++] = 'TM-plotting2012plotTabOutput.png';
+imageList[max++] = 'TM-plotting2012plotTabPage.png';
+imageList[max++] = 'TM-plotting2012plotTabPageAdv.png';
+imageList[max++] = 'TM-plotting2012plotTabProject.png';
+imageList[max++] = '_fixPlotting1.png';
+imageList[max++] = '_fixPlotting1small.png';
+imageList[max++] = '_fixPlotting2.png';
+imageList[max++] = '_fixPlotting2small.png';
+imageList[max++] = '_fixPlotting3.png';
+imageList[max++] = '_fixPlotting3small.png';
+imageList[max++] = '_fixPlotting4.png';
+imageList[max++] = '_fixPlotting4small.png';
+imageList[max++] = '_fixPlotting5.png';
+imageList[max++] = '_fixPlotting5small.png';
+imageList[max++] = '_fixPlotting6.png';
+imageList[max++] = '_fixPlotting6small.png';
+
+function SetImage(index)
+{
+ SetImageAbs((index + start) % max);
+}
+
+function SetImageAbs(index)
+{
+ var content = 
+  '<img src="' + imageList[index] + '" border=1/>' + 
+  '<p>'        + imageList[index] + '</p>'
+
+ document.getElementById("content").innerHTML = content;
+
+ start = index;
+ 
+ UpdateTable();
+}
+
+function SetGallery()
+{
+ var index;
+ var content = "";
+ 
+ content = content +
+  '<table cellpadding=0 cellspacing=1><tr>\n';
+ for (index = 0; index < max; index++)
+ {
+  content = content +
+   '<td>' +
+   '<img ' +
+   'id=table' + index + ' ' +
+   'src="' + imageList[index] + '" ' +
+   'onclick="SetImageAbs(' + index + ')" ' +
+   'width=50 height=50 border=1/>' +
+   '</td>';
+  if (index % galleryRowCount == galleryRowCount - 1)
+  {
+   content = content +
+    '\n</tr><tr>\n';
+  }
+ }
+ content = content +
+  '\n</tr></table>';
+
+ document.getElementById("content").innerHTML = content;
+}
+
+function ShiftTable(count)
+{
+ if (count < 0)
+ {
+  start = (start + max + count) % max;
+ }
+ else
+ {
+  start = (start + count)       % max;
+ }
+ 
+ UpdateTable();
+}
+
+function UpdateTable()
+{
+ var index;
+ 
+ idIndex = 0;
+ for (index = start; index < start + tableSize; index++)
+ {
+  id = 'table' + idIndex;
+  idIndex++;
+  
+  document.getElementById(id).src = imageList[index % max];
+ }
+}
+
+function WriteTableImage(index)
+{
+ document.write(
+  '<td>' +
+  '<img ' +
+  'id=table' + index + ' ' +
+  'src="' + imageList[index] + '" ' +
+  'onclick="SetImage(' + index + ')" ' +
+  'width=50 height=50 border=1/>' +
+  '</td>\n');
+}
+</script>   
+
+  <center>
+   <table cellpadding=0 cellspacing=1>
+    <tr>
+     <td>
+      <input type=button onclick="SetGallery()" value="...">&nbsp;&nbsp;&nbsp;
+     </td>
+     <td>
+      <input type=button onclick="ShiftTable(-tableSize)" value="<<">
+     </td>
+     <td>
+      <input type=button onclick="ShiftTable(-1)" value="<">
+     </td>
+<script>
+for (index = 0; index < tableSize; index++)
+{
+ WriteTableImage(index);
+}
+</script>
+     <td>
+      <input type=button onclick="ShiftTable(1)" value=">">
+     </td>
+     <td>
+      <input type=button onclick="ShiftTable(tableSize)" value=">>">
+     </td>
+    </tr>
+   </table>
+
+   <div id=content></div>
+   
+<script>
+SetImage(0);
+</script>
+  </center>
+ </body>
+</html> 
+
